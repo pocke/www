@@ -15,6 +15,15 @@ www
 
 HTTP Server start serving for static files at random port. And browser is automatically opened.
 
+VS. python3 -m http.server
+-------------------------
+
+|              | python         | www |
+| ---          | -----          | --- |
+| port         | 8000(Optional) | Random |
+| browser open | Manual         | automatically |
+| command name | long           | short |
+
 License
 ----------
 
