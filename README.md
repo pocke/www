@@ -1,3 +1,20 @@
+Installation
+---------------
+
+```sh
+go get github.com/pocke/www
+```
+
+Usage
+---------
+
+```sh
+cd DOCUMENT_ROOT
+www
+```
+
+HTTP Server start serving for static files at random port. And browser is automatically opened.
+
 License
 ----------
 
