@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	url := fmt.Sprintf("http://%s", l.Addr())
+	url := fmt.Sprintf("http://127.0.0.1:%d", l.Addr().(*net.TCPAddr).Port)
 	open.Run(url)
 	fmt.Println(url)
 
