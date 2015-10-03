@@ -5,6 +5,7 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/pocke/hlog"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -17,7 +18,7 @@ func main() {
 	open.Run(url)
 	fmt.Println(url)
 
-	http.Serve(l, http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}))
 }
