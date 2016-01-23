@@ -17,6 +17,12 @@ www
 
 HTTP Server start serving for static files at random port. And browser is automatically opened.
 
+```sh
+$ www --help
+Usage of www:
+  -p, --port=0: TCP port number
+```
+
 VS. python3 -m http.server
 -------------------------
 
@@ -27,8 +33,8 @@ VS. python3 -m http.server
 | command name | long           | short |
 
 License
-----------
+-------
 
-Copyright &copy; 2015 Masataka Kuwabara  
-Licensed [NYSL](http://www.kmonos.net/nysl/) ([English page](http://www.kmonos.net/nysl/index.en.html))  
-NYSL is same as public domain.
+These codes are licensed under CC0.
+
+[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png "CC0")](http://creativecommons.org/publicdomain/zero/1.0/deed.en)
