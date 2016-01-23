@@ -7,10 +7,15 @@ import (
 
 	"github.com/pocke/hlog"
 	"github.com/skratchdot/open-golang/open"
+	"github.com/spf13/pflag"
 )
 
 func main() {
-	l, err := net.Listen("tcp", ":0")
+	var port int
+	pflag.IntVarP(&port, "port", "p", 0, "TCP port number")
+	pflag.Parse()
+
+	l, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
 	if err != nil {
 		panic(err)
 	}
