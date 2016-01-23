@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
 	"net/http"
+	"os"
 
 	"github.com/pocke/hlog"
 	"github.com/skratchdot/open-golang/open"
@@ -23,7 +25,21 @@ func main() {
 	open.Run(url)
 	fmt.Println(url)
 
+	go reOpenner(url)
+
 	http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}))
+}
+
+func reOpenner(url string) {
+	sc := bufio.NewScanner(os.Stdout)
+	sc.Split(bufio.ScanLines)
+	for sc.Scan() {
+
+		t := sc.Text()
+		if len(t) != 0 && t[0] == 'r' {
+			open.Run(url)
+		}
+	}
 }
