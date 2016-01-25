@@ -28,6 +28,7 @@ func main() {
 	go reOpenner(url)
 
 	http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Cache-Control", "no-store")
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}))
 }
