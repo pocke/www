@@ -23,6 +23,9 @@ Usage of www:
   -p, --port=0: TCP port number
 ```
 
+![www-basic](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120042.gif)
+
+
 VS. python3 -m http.server
 -------------------------
 
@@ -31,6 +34,13 @@ VS. python3 -m http.server
 | port         | 8000(Optional) | Random |
 | browser open | Manual         | automatically |
 | command name | long           | short |
+
+
+Re-open the browser
+---------
+
+
+![www-reload](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120207.gif)
 
 License
 -------
