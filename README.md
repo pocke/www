@@ -18,8 +18,8 @@ www
 HTTP Server start serving for static files at random port. And browser is automatically opened.
 
 ```sh
-$ www --help
 Usage of www:
+  -b, --binding="localhost": Bind www to the specified IP.
   -p, --port=0: TCP port number
 ```
 
