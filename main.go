@@ -14,10 +14,12 @@ import (
 
 func main() {
 	var port int
+	var binding string
 	pflag.IntVarP(&port, "port", "p", 0, "TCP port number")
+	pflag.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
 	pflag.Parse()
 
-	l, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
 	if err != nil {
 		panic(err)
 	}
