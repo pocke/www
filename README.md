@@ -26,6 +26,20 @@ Usage of www:
 ![www-basic](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120042.gif)
 
 
+Configuration file
+------
+
+```sh
+$ cat .www
+-p 8888
+$ www
+http://127.0.0.1:8888
+2016/07/22 17:04:28 Started GET "/" for 127.0.0.1:49500
+2016/07/22 17:04:28 response status: 200
+...
+```
+
+
 VS. python3 -m http.server
 -------------------------
 
