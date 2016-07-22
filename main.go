@@ -3,9 +3,11 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/pocke/hlog"
 	"github.com/skratchdot/open-golang/open"
@@ -13,11 +15,17 @@ import (
 )
 
 func main() {
+	conf, err := loadConfigFile()
+	if err != nil {
+		panic(err)
+	}
+
 	var port int
 	var binding string
-	pflag.IntVarP(&port, "port", "p", 0, "TCP port number")
-	pflag.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
-	pflag.Parse()
+	fs := pflag.NewFlagSet(os.Args[0], pflag.ExitOnError)
+	fs.IntVarP(&port, "port", "p", 0, "TCP port number")
+	fs.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
+	fs.Parse(append(conf, os.Args...))
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
 	if err != nil {
@@ -45,4 +53,24 @@ func reOpenner(url string) {
 			open.Run(url)
 		}
 	}
+}
+
+func loadConfigFile() ([]string, error) {
+	path := "./.www"
+	if !fileExist(path) {
+		return []string{}, nil
+	}
+
+	b, err := ioutil.ReadFile(path)
+	if err != nil {
+		return nil, err
+	}
+	s := strings.Trim(string(b), "\n")
+
+	return strings.Split(s, " "), nil
+}
+
+func fileExist(filename string) bool {
+	_, err := os.Stat(filename)
+	return err == nil
 }
