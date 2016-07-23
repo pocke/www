@@ -29,6 +29,8 @@ Usage of www:
 Configuration file
 ------
 
+www loads `./.www` file as command line options.
+
 ```sh
 $ cat .www
 -p 8888
@@ -55,6 +57,13 @@ Re-open the browser
 
 
 ![www-reload](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120207.gif)
+
+Links
+-------
+
+- [楽々静的HTTPサーバー - pockestrap](http://pocke.hatenablog.com/entry/2016/01/25/120952)
+- [www v0.3.0 をリリースした - pockestrap](http://pocke.hatenablog.com/entry/2016/04/09/233321)
+
 
 License
 -------
