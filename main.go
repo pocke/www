@@ -22,9 +22,11 @@ func main() {
 
 	var port int
 	var binding string
+	var noBrowser bool
 	fs := pflag.NewFlagSet(os.Args[0], pflag.ExitOnError)
 	fs.IntVarP(&port, "port", "p", 0, "TCP port number")
 	fs.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
+	fs.BoolVarP(&noBrowser, "no-browser", "n", false, "Do not open a browser.")
 	fs.Parse(append(conf, os.Args...))
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
@@ -32,7 +34,9 @@ func main() {
 		panic(err)
 	}
 	url := fmt.Sprintf("http://127.0.0.1:%d", l.Addr().(*net.TCPAddr).Port)
-	open.Run(url)
+	if !noBrowser {
+		open.Run(url)
+	}
 	fmt.Println(url)
 
 	go reOpenner(url)
