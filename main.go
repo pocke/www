@@ -20,6 +20,8 @@ func main() {
 	}
 }
 
+var version = "master"
+
 func Main(args []string) error {
 	conf, err := loadConfigFile()
 	if err != nil {
@@ -29,10 +31,12 @@ func Main(args []string) error {
 	var port int
 	var binding string
 	var noBrowser bool
+	var displayVersion bool
 	fs := pflag.NewFlagSet(os.Args[0], pflag.ContinueOnError)
 	fs.IntVarP(&port, "port", "p", 0, "TCP port number")
 	fs.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
 	fs.BoolVarP(&noBrowser, "no-browser", "n", false, "Do not open a browser.")
+	fs.BoolVarP(&displayVersion, "version", "v", false, "Display version")
 	err = fs.Parse(append(conf, os.Args...))
 	if err != nil {
 		if err == pflag.ErrHelp {
@@ -40,6 +44,11 @@ func Main(args []string) error {
 		} else {
 			return err
 		}
+	}
+
+	if displayVersion {
+		fmt.Println(version)
+		return nil
 	}
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))

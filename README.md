@@ -22,6 +22,7 @@ Usage of www:
   -b, --binding string   Bind www to the specified IP. (default "localhost")
   -n, --no-browser       Do not open a browser.
   -p, --port int         TCP port number
+  -v, --version          Display version
 ```
 
 ![www-basic](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120042.gif)
