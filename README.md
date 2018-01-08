@@ -19,8 +19,9 @@ HTTP Server start serving for static files at random port. And browser is automa
 
 ```sh
 Usage of www:
-  -b, --binding="localhost": Bind www to the specified IP.
-  -p, --port=0: TCP port number
+  -b, --binding string   Bind www to the specified IP. (default "localhost")
+  -n, --no-browser       Do not open a browser.
+  -p, --port int         TCP port number
 ```
 
 ![www-basic](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120042.gif)
