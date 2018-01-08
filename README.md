@@ -53,12 +53,6 @@ VS. python3 -m http.server
 | command name | long           | short |
 
 
-Re-open the browser
----------
-
-
-![www-reload](http://cdn-ak.f.st-hatena.com/images/fotolife/P/Pocke/20160125/20160125120207.gif)
-
 Links
 -------
 

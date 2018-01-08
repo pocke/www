@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"io/ioutil"
 	"net"
@@ -39,24 +38,10 @@ func main() {
 	}
 	fmt.Println(url)
 
-	go reOpenner(url)
-
 	http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "no-store")
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}))
-}
-
-func reOpenner(url string) {
-	sc := bufio.NewScanner(os.Stdout)
-	sc.Split(bufio.ScanLines)
-	for sc.Scan() {
-
-		t := sc.Text()
-		if len(t) != 0 && t[0] == 'r' {
-			open.Run(url)
-		}
-	}
 }
 
 func loadConfigFile() ([]string, error) {
