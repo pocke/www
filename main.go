@@ -14,31 +14,47 @@ import (
 )
 
 func main() {
+	if err := Main(os.Args); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
+}
+
+func Main(args []string) error {
 	conf, err := loadConfigFile()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	var port int
 	var binding string
 	var noBrowser bool
-	fs := pflag.NewFlagSet(os.Args[0], pflag.ExitOnError)
+	fs := pflag.NewFlagSet(os.Args[0], pflag.ContinueOnError)
 	fs.IntVarP(&port, "port", "p", 0, "TCP port number")
 	fs.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
 	fs.BoolVarP(&noBrowser, "no-browser", "n", false, "Do not open a browser.")
-	fs.Parse(append(conf, os.Args...))
+	err = fs.Parse(append(conf, os.Args...))
+	if err != nil {
+		if err == pflag.ErrHelp {
+			return nil
+		} else {
+			return err
+		}
+	}
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
 	if err != nil {
-		panic(err)
+		return err
 	}
 	url := fmt.Sprintf("http://127.0.0.1:%d", l.Addr().(*net.TCPAddr).Port)
 	if !noBrowser {
-		open.Run(url)
+		if err := open.Run(url); err != nil {
+			return err
+		}
 	}
 	fmt.Println(url)
 
-	http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
+	return http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "no-store")
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}))
