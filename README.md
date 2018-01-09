@@ -57,6 +57,7 @@ VS. python3 -m http.server
 Links
 -------
 
+- [www: The easiest web server for static files](https://medium.com/@pocke/www-the-easiest-web-server-for-static-files-6e3ba1c88dfa)
 - [楽々静的HTTPサーバー - pockestrap](http://pocke.hatenablog.com/entry/2016/01/25/120952)
 - [www v0.3.0 をリリースした - pockestrap](http://pocke.hatenablog.com/entry/2016/04/09/233321)
 
