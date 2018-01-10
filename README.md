@@ -1,11 +1,7 @@
 Installation
 ---------------
 
-```sh
-go get github.com/pocke/www
-```
-
-You download binary from [latest release](https://github.com/pocke/www/releases/latest), and place it in `$PATH` directory.
+Download binary from [latest release](https://github.com/pocke/www/releases/latest), and place it in `$PATH` directory.
 
 Usage
 ---------
