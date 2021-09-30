@@ -1,0 +1,6 @@
+github.com/pocke/hlog v0.0.0-20150607034726-feb43ebeea3d h1:mltCql/OhC6knqdae9kCMX6CxUp8Qf5drBp2yy8EeOI=
+github.com/pocke/hlog v0.0.0-20150607034726-feb43ebeea3d/go.mod h1:cLDfx5b3YboAp+JOrUpJMxecjSe9yFvTRIhb/Ca+39c=
+github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966 h1:JIAuq3EEf9cgbU6AtGPK4CTG3Zf6CKMNqf0MHTggAUA=
+github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966/go.mod h1:sUM3LWHvSMaG192sy56D9F7CNvL7jUJVXoqM1QKLnog=
+github.com/spf13/pflag v1.0.5 h1:iy+VFUOCP1a+8yFto/drg2CJ5u0yRoB7fZw3DKv/JXA=
+github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An2Bg=
