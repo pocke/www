@@ -1,5 +1,5 @@
 dep:
-	go get github.com/goreleaser/goreleaser
+	go install github.com/goreleaser/goreleaser@latest
 
 release:
 	goreleaser
