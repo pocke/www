@@ -58,7 +58,7 @@ func Main(args []string) error {
 	url := fmt.Sprintf("http://127.0.0.1:%d", l.Addr().(*net.TCPAddr).Port)
 	if !noBrowser {
 		if err := open.Run(url); err != nil {
-			return err
+			fmt.Fprintln(os.Stderr, err)
 		}
 	}
 	fmt.Println(url)
