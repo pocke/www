@@ -3,10 +3,10 @@ Installation
 
 Download binary from [latest release](https://github.com/pocke/www/releases/latest), and place it in `$PATH` directory.
 
-or using `go get` command.
+Or using `go install` command.
 
 ```shell
-$ go get github.com/pocke/www
+$ go install github.com/pocke/www@latest
 ```
 
 Usage
