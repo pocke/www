@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
@@ -75,7 +74,7 @@ func loadConfigFile() ([]string, error) {
 		return []string{}, nil
 	}
 
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
