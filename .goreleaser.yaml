@@ -1,8 +1,8 @@
 builds:
   - goos:
-    - linux
-    - darwin
-    - windows
+      - linux
+      - darwin
+      - windows
     goarch:
-    - amd64
-    - arm64
+      - amd64
+      - arm64
