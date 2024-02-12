@@ -51,14 +51,14 @@ func Main(args []string) error {
 		}
 	}
 
-	if checkCertAndKey(certFile, keyFile) {
-		err := errors.New("you must specify both --cert and --key")
-		return err
-	}
-
 	if displayVersion {
 		fmt.Println(version)
 		return nil
+	}
+
+	if checkCertAndKey(certFile, keyFile) {
+		err := errors.New("you must specify both --cert and --key")
+		return err
 	}
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
