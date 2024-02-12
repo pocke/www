@@ -51,7 +51,7 @@ func Main(args []string) error {
 		}
 	}
 
-	if (certFile != "" && keyFile == "") || (certFile == "" && keyFile != "") {
+	if checkCertAndKey(certFile, keyFile) {
 		err := errors.New("you must specify both --cert and --key")
 		return err
 	}
@@ -84,6 +84,13 @@ func Main(args []string) error {
 			http.ServeFile(w, r, "."+r.URL.Path)
 		}))
 	}
+}
+
+func checkCertAndKey(cert, key string) bool {
+	if cert == "" && key == "" {
+		return true
+	}
+	return (cert != "" && key == "") || (cert == "" && key != "")
 }
 
 func loadConfigFile() ([]string, error) {
