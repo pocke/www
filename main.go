@@ -73,16 +73,15 @@ func Main(args []string) error {
 	}
 	fmt.Println(url)
 
+	handler := func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Cache-Control", "no-store")
+		http.ServeFile(w, r, "."+r.URL.Path)
+	}
+
 	if certFile != "" || keyFile != "" {
-		return http.ServeTLS(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Add("Cache-Control", "no-store")
-			http.ServeFile(w, r, "."+r.URL.Path)
-		}), certFile, keyFile)
+		return http.ServeTLS(l, hlog.Wrap(handler), certFile, keyFile)
 	} else {
-		return http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
-			w.Header().Add("Cache-Control", "no-store")
-			http.ServeFile(w, r, "."+r.URL.Path)
-		}))
+		return http.Serve(l, hlog.Wrap(handler))
 	}
 }
 
