@@ -78,7 +78,7 @@ func Main(args []string) error {
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}
 
-	if certFile != "" || keyFile != "" {
+	if certFile != "" {
 		return http.ServeTLS(l, hlog.Wrap(handler), certFile, keyFile)
 	} else {
 		return http.Serve(l, hlog.Wrap(handler))
