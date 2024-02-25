@@ -22,6 +22,8 @@ HTTP Server start serving for static files at random port. And browser is automa
 ```sh
 Usage of www:
   -b, --binding string   Bind www to the specified IP. (default "localhost")
+      --cert string      Specify a cert file path for serve https. If you specify this, you must specify --key too.
+      --key string       Specify a key file path for serve https. If you specify this, you must specify --cert too.
   -n, --no-browser       Do not open a browser.
   -p, --port int         TCP port number
   -v, --version          Display version
