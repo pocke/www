@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -31,11 +32,15 @@ func Main(args []string) error {
 	var binding string
 	var noBrowser bool
 	var displayVersion bool
+	var certFile string
+	var keyFile string
 	fs := pflag.NewFlagSet(os.Args[0], pflag.ContinueOnError)
 	fs.IntVarP(&port, "port", "p", 0, "TCP port number")
 	fs.StringVarP(&binding, "binding", "b", "localhost", "Bind www to the specified IP.")
 	fs.BoolVarP(&noBrowser, "no-browser", "n", false, "Do not open a browser.")
 	fs.BoolVarP(&displayVersion, "version", "v", false, "Display version")
+	fs.StringVarP(&certFile, "cert", "", "", "Specify a cert file path for serve https. If you specify this, you must specify --key too.")
+	fs.StringVarP(&keyFile, "key", "", "", "Specify a key file path for serve https. If you specify this, you must specify --cert too.")
 	err = fs.Parse(append(conf, os.Args...))
 	if err != nil {
 		if err == pflag.ErrHelp {
@@ -50,6 +55,11 @@ func Main(args []string) error {
 		return nil
 	}
 
+	if checkCertAndKey(certFile, keyFile) {
+		err := errors.New("you must specify both --cert and --key")
+		return err
+	}
+
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
 	if err != nil {
 		return err
@@ -62,10 +72,23 @@ func Main(args []string) error {
 	}
 	fmt.Println(url)
 
-	return http.Serve(l, hlog.Wrap(func(w http.ResponseWriter, r *http.Request) {
+	handler := func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Cache-Control", "no-store")
 		http.ServeFile(w, r, "."+r.URL.Path)
-	}))
+	}
+
+	if certFile != "" {
+		return http.ServeTLS(l, hlog.Wrap(handler), certFile, keyFile)
+	} else {
+		return http.Serve(l, hlog.Wrap(handler))
+	}
+}
+
+func checkCertAndKey(cert, key string) bool {
+	if cert == "" && key == "" {
+		return true
+	}
+	return (cert != "" && key == "") || (cert == "" && key != "")
 }
 
 func loadConfigFile() ([]string, error) {
