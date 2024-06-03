@@ -59,12 +59,17 @@ func Main(args []string) error {
 		err := errors.New("you must specify both --cert and --key")
 		return err
 	}
+	isHttps := certFile != ""
+	protocol := "http"
+	if isHttps {
+		protocol = "https"
+	}
 
 	l, err := net.Listen("tcp", fmt.Sprintf("%s:%d", binding, port))
 	if err != nil {
 		return err
 	}
-	url := fmt.Sprintf("http://127.0.0.1:%d", l.Addr().(*net.TCPAddr).Port)
+	url := fmt.Sprintf("%s://127.0.0.1:%d", protocol, l.Addr().(*net.TCPAddr).Port)
 	if !noBrowser {
 		if err := open.Run(url); err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -77,7 +82,7 @@ func Main(args []string) error {
 		http.ServeFile(w, r, "."+r.URL.Path)
 	}
 
-	if certFile != "" {
+	if isHttps {
 		return http.ServeTLS(l, hlog.Wrap(handler), certFile, keyFile)
 	} else {
 		return http.Serve(l, hlog.Wrap(handler))
@@ -85,9 +90,6 @@ func Main(args []string) error {
 }
 
 func checkCertAndKey(cert, key string) bool {
-	if cert == "" && key == "" {
-		return true
-	}
 	return (cert != "" && key == "") || (cert == "" && key != "")
 }
 
