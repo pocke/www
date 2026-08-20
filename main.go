@@ -41,7 +41,7 @@ func Main(args []string) error {
 	fs.BoolVarP(&displayVersion, "version", "v", false, "Display version")
 	fs.StringVarP(&certFile, "cert", "", "", "Specify a cert file path for serve https. If you specify this, you must specify --key too.")
 	fs.StringVarP(&keyFile, "key", "", "", "Specify a key file path for serve https. If you specify this, you must specify --cert too.")
-	err = fs.Parse(append(conf, os.Args...))
+	err = fs.Parse(append(conf, args[1:]...))
 	if err != nil {
 		if err == pflag.ErrHelp {
 			return nil
@@ -77,16 +77,16 @@ func Main(args []string) error {
 	}
 	fmt.Println(url)
 
-	handler := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Add("Cache-Control", "no-store")
-		http.ServeFile(w, r, "."+r.URL.Path)
-	}
-
 	if isHttps {
 		return http.ServeTLS(l, hlog.Wrap(handler), certFile, keyFile)
 	} else {
 		return http.Serve(l, hlog.Wrap(handler))
 	}
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Cache-Control", "no-store")
+	http.ServeFile(w, r, "."+r.URL.Path)
 }
 
 func checkCertAndKey(cert, key string) bool {
