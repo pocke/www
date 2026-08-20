@@ -1,6 +1,6 @@
 module github.com/pocke/www
 
-go 1.24.0
+go 1.27.0
 
 require (
 	github.com/pocke/hlog v0.0.0-20150607034726-feb43ebeea3d
